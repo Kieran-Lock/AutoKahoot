@@ -1,4 +1,4 @@
-from kahoot_bot import KahootBot
+from autokahoot import KahootBot
 
 
 def run():
