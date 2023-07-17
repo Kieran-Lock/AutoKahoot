@@ -1,12 +1,19 @@
-from autokahoot import KahootBot
+from autokahoot import Kahoot
 
 
-def run():
-    bot = KahootBot(debug=True, minimum_answer_delay=0.5, maximum_answer_delay=1.5)
-    username, game_pin, game_id = list(bot.get_game_data().values())
-    for output_message in bot.play_game(username, game_pin, game_id):
-        print(output_message)
+def get_inputs() -> tuple[str, str, str]:
+    username = input("Username:\t")
+    pin = input("Pin:\t")
+    game_id = input("Game ID:\t")
+    return username, pin, game_id
+
+
+def main() -> None:
+    username, pin, game_id = get_inputs()
+    with Kahoot(username, pin, game_id).connect() as kahoot:
+        for event in kahoot.events():
+            print(event)
 
 
 if __name__ == "__main__":
-    run()
+    main()

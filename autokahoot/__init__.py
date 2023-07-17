@@ -1,1 +1,2 @@
-from .old_bot import KahootBot
+from .kahoot import Kahoot
+from .answer_delay import AnswerDelay

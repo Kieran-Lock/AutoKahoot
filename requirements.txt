@@ -1,3 +1,3 @@
 requests==2.31.0
-aiocometd==0.4.5
+aiocometd @ git+https://github.com/random-python/x_aiocometd@develop
 py_mini_racer==0.6.0
