@@ -1,4 +1,5 @@
 from autokahoot import Kahoot
+from asyncio import run
 
 
 def get_inputs() -> tuple[str, str, str]:
@@ -8,13 +9,14 @@ def get_inputs() -> tuple[str, str, str]:
     return username, pin, game_id
 
 
-def main() -> None:
+async def main() -> None:
     # username, pin, game_id = get_inputs()
-    username, pin, game_id = "Bot", "1355940", "9983b771-65bc-4175-af56-d647d3cabc8d"  # Testing game details
-    with Kahoot(username, pin, game_id).connect() as kahoot:
-        for event in kahoot.events():
+    username, pin, game_id = "Bot", "9058527", "4113d397-ab64-4245-a94e-77fc2a81c48f"  # Testing game details
+    kahoot = Kahoot(username, pin, game_id)
+    async with kahoot.connect() as client:
+        async for event in kahoot.events(client):
             print(event)
 
 
 if __name__ == "__main__":
-    main()
+    run(main())

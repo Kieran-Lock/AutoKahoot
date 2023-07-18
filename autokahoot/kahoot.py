@@ -1,32 +1,47 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from contextlib import contextmanager
-from typing import Iterator
+from contextlib import asynccontextmanager
+from typing import AsyncIterator
 from time import time
 from py_mini_racer import MiniRacer
 from base64 import b64decode
 from re import split as re_split
 from itertools import cycle
+from aiocometd import Client as CometDClient
 from requests import Response, session as requests_session
 from .event import Event
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class Kahoot:
+    __slots__ = "username", "pin", "game_id"
+
     username: str
     pin: str
     game_id: str
 
-    @contextmanager
-    def connect(self) -> Iterator[Kahoot]:
+    @asynccontextmanager
+    async def connect(self) -> AsyncIterator[CometDClient]:
         response = self.reserve_session()
         session_id = self.solve_challenge(
             response.json().get("challenge"), response.headers.get("x-kahoot-session-token")
         )
-        yield self
+        url = f"wss://play.kahoot.it/cometd/{self.pin}/{session_id}"
+        async with CometDClient(url, ssl=True) as client:
+            yield client
 
-    def events(self) -> Iterator[Event]:
-        yield Event(f"Developing solution for game with ID '{self.game_id}'")
+    async def events(self, client: CometDClient) -> AsyncIterator[Event]:
+        for subscription in ("controller", "player", "status"):
+            await client.subscribe(f"/service/{subscription}")
+        await client.publish(
+            "/service/controller",
+            {
+                "host": "kahoot.it", "gameid": self.pin,
+                "captchaToken": "KAHOOT_TOKEN_frkdbxs3k7nf741hbvf=", "name": self.username, "type": "login"
+            }
+        )
+        async for client_message in client:
+            yield Event(client_message.get("data"))
 
     def reserve_session(self) -> Response:
         session = requests_session()
