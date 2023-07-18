@@ -7,15 +7,13 @@ from py_mini_racer import MiniRacer
 from base64 import b64decode
 from re import split as re_split
 from itertools import cycle
-from aiocometd import Client as CometDClient
+from aiocometd_noloop import Client as CometDClient
 from requests import Response, session as requests_session
 from .event import Event
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Kahoot:
-    __slots__ = "username", "pin", "game_id"
-
     username: str
     pin: str
     game_id: str
