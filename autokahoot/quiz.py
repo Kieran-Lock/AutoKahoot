@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 from requests import get
-from .question import Question
+from .rounds import Round, Rounds
 
 
 @dataclass(frozen=True, slots=True)
@@ -11,7 +11,7 @@ class Quiz:
     author: str
     title: str
     description: str = field(repr=False)
-    questions: list[Question] = field(repr=False)
+    rounds: list[Round] = field(repr=False)
 
     @classmethod
     def from_uuid(cls, uuid: str) -> Quiz:
@@ -23,5 +23,8 @@ class Quiz:
             json.get("creator"),
             json.get("title"),
             json.get("description"),
-            [Question.from_json(question_json) for question_json in json.get("questions")]
+            [
+                Rounds.get(question_json.get("type", "NOT_IMPLEMENTED").upper()).from_json(question_json, index)
+                for index, question_json in enumerate(json.get("questions"))
+            ]
         )
