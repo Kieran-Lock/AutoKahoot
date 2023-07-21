@@ -26,21 +26,39 @@
 <!-- ABOUT THE PROJECT -->
 ## About the Project
 
-
+AutoKahoot is a fully-featured Kahoot quiz bot, which allows you to get maximum score in Kahoot lobbies.  
+This bot implements most question types, so even on the most **outrageous** Kahoots, it will probably win.
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
+To get started using AutoKahoot, clone this repository with:
+```
+git clone https://github.com/Kieran-Lock/AutoKahoot.git
+```
 
+Further configuration is not required.
 
 
 
 <!-- BASIC USAGE EXAMPLES -->
 ## Basic Usage
 
+You can now run the quiz bot with the following command (if python is installed correctly):
+```py
+python3 main.py
+```
 
+When you run the bot, answer the following questions in your terminal:
+```
+Quiz ID:	<Find This In The Host's URL>
+Lobby Pin:	<The Lobby Pin>
+Bot Username:	<Any Valid Kahoot Username>
+```
+
+The bot will then connect to the lobby and answer questions automatically - you can sit back and relax!
 
 
 
