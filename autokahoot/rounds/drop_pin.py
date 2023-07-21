@@ -24,8 +24,10 @@ class DropPinRound(Round):
             "type": "message",
             "content": dumps({
                 "type": "drop_pin",
-                "x": 50.0,
-                "y": 50.0,
+                "pin": {
+                    "x": 50.0,
+                    "y": 50.0
+                },
                 "questionIndex": self.index,
             })
         })

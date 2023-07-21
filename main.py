@@ -3,15 +3,10 @@ from asyncio import run
 
 
 def get_inputs() -> tuple[str, str, str]:
-    # uuid = input("Quiz ID:\t")
-    # pin = input("Lobby Pin:\t")
-    # username = input("Bot Username:\t")
-    # return uuid, pin, username
-    return (
-        "ae0e4ffc-30d0-43b6-a236-8612a583011c",
-        "1205671",
-        "Bot"
-    )
+    uuid = input("Quiz ID:\t")
+    pin = input("Lobby Pin:\t")
+    username = input("Bot Username:\t")
+    return uuid, pin, username
 
 
 async def main() -> None:
