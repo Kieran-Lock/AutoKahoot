@@ -10,7 +10,7 @@
   <p align="center">
     A fully-featured Kahoot quiz bot
     <br />
-    <a href="https://www.youtube.com/@theredditgod"><strong>Try it now »</strong></a>
+    <a href="https://kahoot.it/"><strong>Try it now »</strong></a>
     <br />
     <br />
     <a href="#about-the-project">Getting Started</a>
