@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "autokahoot"
+version = "0.1.0"
+description = ""
+authors = ["Kieran Lock <kieran.lock@outlook.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.11"
+requests = "^2.31.0"
+aiocometd-noloop = "^0.4.9"
+py_mini_racer = "^0.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
