@@ -23,11 +23,7 @@ class Bot:
 
     @staticmethod
     async def play(lobby: Lobby, client: CometDClient) -> None:
-        from pprint import pformat
-
         async for event in client:
-            print(f"Received Event: {pformat(event)}")
             if lobby.get_event_id(event) == Events.START_QUESTION.value:
-                print("Starting question!")
-                question_index = loads(event.get("data").get("content")).get("gameBlockIndex")
+                question_index = loads(event["data"]["content"])["gameBlockIndex"]
                 await lobby.quiz.rounds[question_index].send_answer(client, lobby)

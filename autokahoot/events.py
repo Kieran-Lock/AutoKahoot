@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import IntEnum
 
 
-class Events(Enum):
+class Events(IntEnum):
     UNKNOWN = 0
     GET_READY = 1
     START_QUESTION = 2
